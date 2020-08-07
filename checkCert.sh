@@ -1,0 +1,1 @@
+curl -XPOST -d "fqdn=$1" https://unboundtest.com/caaproblem/checkhost #openssl s_client -connect $1:443 -showcerts </dev/null 2>/dev/null | openssl x509 -text -noout | grep -A 1 Serial\ Number | tr -d :
