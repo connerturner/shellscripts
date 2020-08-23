@@ -9,3 +9,8 @@ set tabstop =4
 set softtabstop =4
 set shiftwidth =4
 set expandtab
+
+" vim-plugins
+if filereadable(expand("~/.vimrc.plug"))
+    source ~/.vimrc.plug
+endif
