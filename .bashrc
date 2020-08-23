@@ -113,9 +113,6 @@ fi
 #cd to ~ on shell load
 cd ~
 
-#alias to colour tmux
-alias tmux='tmux -2'
-
 #export my google key to session (PERSONAL RESTRICTED)
 export PERSONAL_GOOGLE_AUTH="$(cat ~/google/key)"
 
