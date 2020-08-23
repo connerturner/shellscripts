@@ -1,1 +1,1 @@
-### Collection of useful (to me) bash scripts
+### Collection of useful (to me) shell scripts
