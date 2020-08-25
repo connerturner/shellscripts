@@ -8,5 +8,7 @@ call plug#begin('~/.vim/plugged')
 
 " Use Vim-Fugitive
 Plug 'tpope/vim-fugitive'
+" Add vim-plug for :help
+Plug 'junegunn/vim-plug'
 
 call plug#end()
