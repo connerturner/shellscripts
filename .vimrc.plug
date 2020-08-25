@@ -6,4 +6,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Use Vim-Fugitive
+Plug 'tpope/vim-fugitive'
+
 call plug#end()
