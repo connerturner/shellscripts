@@ -1,1 +1,1 @@
-### Collection of useful (to me) shell scripts
+## A collection of my shell scripts and dot files
