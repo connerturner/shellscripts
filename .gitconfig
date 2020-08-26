@@ -1,0 +1,6 @@
+[user]
+	name = Conner Turner
+	email = cturner@zyme.xyz
+[alias]
+	logg = log --graph --decorate --oneline
+	last = log -1 HEAD
