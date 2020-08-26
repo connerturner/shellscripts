@@ -4,7 +4,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-call plug#begin('~/.vim/plugged')
+call plug#begin()
 
 " Use Vim-Fugitive
 Plug 'tpope/vim-fugitive'
