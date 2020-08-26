@@ -14,3 +14,4 @@ set expandtab
 if filereadable(expand("~/.vimrc.plug"))
     source ~/.vimrc.plug
 endif
+nmap oo o<Esc>k
