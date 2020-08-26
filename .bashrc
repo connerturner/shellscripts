@@ -113,6 +113,9 @@ fi
 #cd to ~ on shell load
 cd ~
 
+#load nord dircolours
+test -r ~/.dir_colors && eval $(dircolors -b ~/.dir_colors)
+
 #export my google key to session (PERSONAL RESTRICTED)
 export PERSONAL_GOOGLE_AUTH="$(cat ~/google/key)"
 
