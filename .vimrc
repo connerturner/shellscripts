@@ -5,6 +5,7 @@ set laststatus=2
 set wildmenu
 set termwinsize=16x0
 map q <Nop>
+set splitbelow
 
 set tabstop =4
 set softtabstop =4
