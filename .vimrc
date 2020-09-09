@@ -12,6 +12,8 @@ set softtabstop =4
 set shiftwidth =4
 set expandtab
 
+set term=builtin_ansi
+
 " vim-plugins
 if filereadable(expand("~/.vimrc.plug"))
     source ~/.vimrc.plug
