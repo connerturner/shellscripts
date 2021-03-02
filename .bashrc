@@ -122,9 +122,14 @@ export PERSONAL_GOOGLE_AUTH="$(cat ~/google/key)"
 #I can never remember where alacritty config is on wsl
 export ALACRITTY="/mnt/c/Users/Conner/AppData/Roaming/alacritty"
 
+#query ripe whois
 ripeq() {
     echo "-Br --resource $1" | netcat -w 0 whois.ripe.net 43
 }
+
+#alias for stripping JSONP out
+alias jqp="jq -s -R '.[1+index(\"(\"): rindex(\")\")] | fromjson' | jq"
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
