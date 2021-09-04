@@ -122,10 +122,17 @@ export PERSONAL_GOOGLE_AUTH="$(cat ~/google/key)"
 #I can never remember where alacritty config is on wsl
 export ALACRITTY="/mnt/c/Users/Conner/AppData/Roaming/alacritty"
 
+#display for vcxsrv (don't use resolv.conf)
+export DISPLAY=$(ip route|awk '/^default/{print $3}'):0.0
+
 #query ripe whois
 ripeq() {
     echo "-Br --resource $1" | netcat -w 0 whois.ripe.net 43
 }
+
+# make vim default
+export VISUAL=vim
+export EDITOR="$VISUAL"
 
 #alias for stripping JSONP out
 alias jqp="jq -s -R '.[1+index(\"(\"): rindex(\")\")] | fromjson' | jq"
