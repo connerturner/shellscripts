@@ -11,8 +11,11 @@ set tabstop =4
 set softtabstop =4
 set shiftwidth =4
 set expandtab
+set autochdir
 
-set term=builtin_ansi
+autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+tnoremap <Esc><Esc> <C-w><S-n>
+
 
 " vim-plugins
 if filereadable(expand("~/.vimrc.plug"))
