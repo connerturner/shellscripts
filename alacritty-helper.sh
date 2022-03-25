@@ -19,4 +19,9 @@ check_deps(){
 		echo >&2 "Could not find rustc try using rustup.rs"; 
 		exit 1
 	}
+	# Deps for debian, adjust for other distros
+	deps=("cmake" "pkg-config" "libfreetype6-dev" "libfontconfig1-dev" "libxcb-xfixes0-dev" "libxkbcommon-dev" "python3")
+	dpkg -s "${deps[@]}" >/dev/null 2>&1 || {
+		echo "Deps not installed, need: ${deps[*]}"
+	}
 }
