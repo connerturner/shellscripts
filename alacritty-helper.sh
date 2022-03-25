@@ -1,6 +1,6 @@
 # Helper for updating, building etc Alacritty
 LATEST_RELEASE=0
-BUILD_DIRECTORY="${ALACRITTY_DIRECTORY:~/alacritty}"
+BUILD_DIRECTORY="${ALACRITTY_DIRECTORY:-~/alacritty}"
 get_latest_release() {
 	github_url="https://github.com/alacritty/alacritty/"
 	github_latest=$(basename $(curl -fs -o/dev/null -w %{redirect_url} $github_url"releases/latest"))
