@@ -15,7 +15,7 @@ get_latest_release() {
 check_deps(){
 	# Ensure Rust is usable
 	type rustc > /dev/null 2>&1 || {
-		echo >&2 "Could not find rustc try using rustup.rs"; 
+		printf '%s\n' "Could not find rustc try using rustup.rs"; 
 		exit 1
 	}
 	# Deps for debian, adjust for other distros (gzip for man page)
@@ -27,11 +27,11 @@ check_deps(){
 }
 
 dentry() {
-	
+	:
 }
 
 terminfo() {
-	if infocmp alacritty; then
+	if infocmp alacritty >/dev/null 2>&1; then
 		:
 	elif [[ $EUID -ne 0 ]]; then
 		echo "terminfo compiler needs sudo, run this as sudo."
@@ -59,4 +59,4 @@ build() {
 	terminfo
 }
 
-
+build
