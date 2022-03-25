@@ -26,13 +26,37 @@ check_deps(){
 	}
 }
 
+dentry() {
+	
+}
+
+terminfo() {
+	if infocmp alacritty; then
+		:
+	elif [[ $EUID -ne 0 ]]; then
+		echo "terminfo compiler needs sudo, run this as sudo."
+		exit 1
+	else
+		sudo tic -xe alacritty,alacritty-direct $BUILD_DIRECTORY"/extra/alacritty.info"
+	fi
+}
+
 _build() {
-	[ -d $BUILD_DIRECTORY ] && cargo build --release
+	[ -d $BUILD_DIRECTORY ] || return 1
+	cd $BUILD_DIRECTORY
+	cargo build --release
 }
 
 build() {
 	# Check for Dependencies first
 	check_deps
 	# Build release
-	_build || echo "Build failed. Aborting." && exit 1	
+	_build || {
+		echo "_Build Function Failed. Aborting"
+		exit 1
+	}
+	# Deal with terminal info db
+	terminfo
 }
+
+
