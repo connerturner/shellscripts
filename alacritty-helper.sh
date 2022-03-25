@@ -12,3 +12,11 @@ get_latest_release() {
 		LATEST_RELEASE=$github_latest
 	fi
 }
+
+check_deps(){
+	# Ensure Rust is usable
+	type rustc >/dev/null 2>&1 || {
+		echo >&2 "Could not find rustc try using rustup.rs"; 
+		exit 1
+	}
+}
