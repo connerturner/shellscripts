@@ -59,4 +59,47 @@ build() {
 	terminfo
 }
 
-build
+hwto() {
+cat 1>&2 <<EOF
+USAGE: $0 <command> [OPTIONS]
+
+COMMAND:
+	build		Build and add terminfo
+	dentry		Add desktop entry
+	
+OPTIONS:
+	-h		Show this help information
+	-d,		Set build directory, (default: ~/alacritty or \$ALACRITTY_DIRECTORY if set)
+EOF
+}
+
+args(){
+
+	if [ $# -lt 1 ]; then
+		printf "Invalid number of arguments; \n 
+			$0 <command> [OPTIONS]\n 
+			Use $0 -h for help\n"
+	fi 
+	
+	for args in "$@"; do
+        case "$args" in
+            -d)
+		$BUILD_DIRECTORY=$OPTARG
+		printf "Build Directory: $BUILD_DIRECTORY" ;;
+            build)
+                build
+                ;;
+            de)
+            	de "$@" ;;
+            *)
+            	hwto
+            	echo "$#"
+            	exit 1;;
+        esac
+    done
+}
+
+args "$@"
+
+
+
