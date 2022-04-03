@@ -26,10 +26,6 @@ check_deps(){
 	}
 }
 
-_install() {
-	:
-}
-
 dentry() {
 	local target_bin=$BUILD_DIRECTORY"/target/release/alacritty"
 	if [ -f $target_bin ] && [ ":$PATH:" == *":/usr/local/bin:" ]; then
