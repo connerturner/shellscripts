@@ -4,3 +4,4 @@
 [alias]
 	logg = log --graph --decorate --oneline
 	last = log -1 HEAD
+	diffl = diff HEAD^ HEAD
