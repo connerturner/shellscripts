@@ -1,6 +1,6 @@
 # Helper for updating, building etc Alacritty
 LATEST_RELEASE=0
-BUILD_DIRECTORY="${ALACRITTY_DIRECTORY:-~/alacritty}"
+BUILD_DIRECTORY="${ALACRITTY_DIRECTORY:=~/alacritty}"
 get_latest_release() {
 	github_url="https://github.com/alacritty/alacritty/"
 	github_latest=$(basename $(curl -fs -o/dev/null -w %{redirect_url} $github_url"releases/latest"))
@@ -86,28 +86,28 @@ args(){
 	fi 
 	
 	for args in "$@"; do
-        case "$args" in
-            build)
-                build
-                ;;
-            de)
-            	dentry "$@" ;;
-            *)
-            	hwto
-            	echo "$#"
-            	exit 1;;
-        esac
-    done
+	case "$args" in
+	    build)
+	        build
+	        ;;
+	    de)
+	    	dentry "$@" ;;
+	    *)
+	    	printf "%s command not found. \n" $@
+	    	hwto
+	    	exit 1;;
+	esac
+    	done
 }
 
 while getopts ":d:" opts; do
 	case $opts in
 		d)
-			$BUILD_DIRECTORY=$OPTARG
-			printf "Build Directory: %s \n" $BUILD_DIRECTORY ;;
+			BUILD_DIRECTORY="${OPTARG}"
+			printf "Build Directory: %s \n" $BUILD_DIRECTORY;;
+		*)
+			hwto 
+			exit 1;;
 	esac
-
+done
 args "$@"
-
-
-
