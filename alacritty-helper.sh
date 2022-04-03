@@ -103,7 +103,7 @@ args(){
 while getopts ":d:" opts; do
 	case $opts in
 		d)
-			$BUILD_DIRECTORY="$args++"
+			$BUILD_DIRECTORY=$OPTARG
 			printf "Build Directory: %s \n" $BUILD_DIRECTORY ;;
 	esac
 
