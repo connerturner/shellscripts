@@ -26,8 +26,18 @@ check_deps(){
 	}
 }
 
-dentry() {
+_install() {
 	:
+}
+
+dentry() {
+	local target_bin=$BUILD_DIRECTORY"/target/release/alacritty"
+	if [ -f $target_bin ] && [ ":$PATH:" == *":/usr/local/bin:" ]; then
+		cp $target_bin /usr/local/bin
+		stat /usr/local/bin/alacritty
+	else
+		printf %s $target_bin
+	fi
 }
 
 terminfo() {
@@ -61,14 +71,13 @@ build() {
 
 hwto() {
 cat 1>&2 <<EOF
-USAGE: $0 <command> [OPTIONS]
+USAGE: $0 [OPTIONS] command
 
 COMMAND:
 	build		Build and add terminfo
 	dentry		Add desktop entry
 	
 OPTIONS:
-	-h		Show this help information
 	-d,		Set build directory, (default: ~/alacritty or \$ALACRITTY_DIRECTORY if set)
 EOF
 }
@@ -76,21 +85,17 @@ EOF
 args(){
 
 	if [ $# -lt 1 ]; then
-		printf "Invalid number of arguments; \n 
-			$0 <command> [OPTIONS]\n 
-			Use $0 -h for help\n"
+		printf "Invalid number of arguments; \n"
+		hwto
 	fi 
 	
 	for args in "$@"; do
         case "$args" in
-            -d)
-		$BUILD_DIRECTORY=$OPTARG
-		printf "Build Directory: $BUILD_DIRECTORY" ;;
             build)
                 build
                 ;;
             de)
-            	de "$@" ;;
+            	dentry "$@" ;;
             *)
             	hwto
             	echo "$#"
@@ -98,6 +103,13 @@ args(){
         esac
     done
 }
+
+while getopts ":d:" opts; do
+	case $opts in
+		d)
+			$BUILD_DIRECTORY="$args++"
+			printf "Build Directory: %s \n" $BUILD_DIRECTORY ;;
+	esac
 
 args "$@"
 
