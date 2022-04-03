@@ -86,17 +86,20 @@ args(){
 	fi 
 	
 	for args in "$@"; do
-	case "$args" in
-	    build)
-	        build
-	        ;;
-	    de)
-	    	dentry "$@" ;;
-	    *)
-	    	printf "%s command not found. \n" $@
-	    	hwto
-	    	exit 1;;
-	esac
+		case "$args" in
+		    build)
+		        build
+		        ;;
+		    de)
+		    	dentry "$@" ;;
+		    -*)
+		    	# ignore options
+		    	continue ;;
+		    *)
+		    	printf "%s command not found. \n" $@
+		    	hwto
+		    	exit 1;;
+		esac
     	done
 }
 
