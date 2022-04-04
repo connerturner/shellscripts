@@ -29,10 +29,15 @@ check_deps(){
 dentry() {
 	local target_bin=$BUILD_DIRECTORY"/target/release/alacritty"
 	if [ -f $target_bin ] && [ ":$PATH:" == *":/usr/local/bin:" ]; then
-		cp $target_bin /usr/local/bin
-		stat /usr/local/bin/alacritty
+		
+		if [ cp $target_bin /usr/local/bin ]; then
+			:
+		else
+			printf "Moving binary from %s failed." $target_bin 
+			exit 1		
+		fi
 	else
-		printf %s $target_bin
+		printf "%s not found or /usr/local/bin not in path" $target_bin
 	fi
 }
 
@@ -67,7 +72,7 @@ build() {
 
 hwto() {
 cat 1>&2 <<EOF
-USAGE: $0 [OPTIONS] command
+USAGE: $0 [OPTIONS]
 
 COMMAND:
 	build		Build and add terminfo
@@ -75,42 +80,31 @@ COMMAND:
 	
 OPTIONS:
 	-d,		Set build directory, (default: ~/alacritty or \$ALACRITTY_DIRECTORY if set)
+	-b,		Build. Runs a cargo release build.
+	-e,		Add desktop entry, must be specified after build to use updated binary.
 EOF
 }
 
-args(){
+if [ $# -lt 1 ]; then
+	printf "Invalid number of arguments; \n"
+	hwto
+	exit 1
+fi
 
-	if [ $# -lt 1 ]; then
-		printf "Invalid number of arguments; \n"
-		hwto
-	fi 
-	
-	for args in "$@"; do
-		case "$args" in
-		    build)
-		        build
-		        ;;
-		    de)
-		    	dentry "$@" ;;
-		    -*)
-		    	# ignore options
-		    	continue ;;
-		    *)
-		    	printf "%s command not found. \n" $@
-		    	hwto
-		    	exit 1;;
-		esac
-    	done
-}
-
-while getopts ":d:" opts; do
+while getopts ":deb:" opts; do
 	case $opts in
 		d)
 			BUILD_DIRECTORY="${OPTARG}"
 			printf "Build Directory: %s \n" $BUILD_DIRECTORY;;
+		e)
+			dentry
+			exit 1 ;;
+		b)
+			build
+			exit 1 ;;
 		*)
+			
 			hwto 
-			exit 1;;
+			exit 1 ;;
 	esac
 done
-args "$@"
