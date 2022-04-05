@@ -15,7 +15,7 @@ get_latest_release() {
 check_deps(){
 	# Ensure Rust is usable
 	type rustc > /dev/null 2>&1 || {
-		printf '%s\n' "Could not find rustc try using rustup.rs"; 
+		printf '%s\n' "Could not find rustc try using rustup.rs \n"; 
 		exit 1
 	}
 	# Deps for debian, adjust for other distros (gzip for man page)
@@ -28,16 +28,16 @@ check_deps(){
 
 dentry() {
 	local target_bin=$BUILD_DIRECTORY"/target/release/alacritty"
-	if [ -f $target_bin ] && [ ":$PATH:" == *":/usr/local/bin:" ]; then
-		
-		if [ cp $target_bin /usr/local/bin ]; then
-			:
-		else
-			printf "Moving binary from %s failed." $target_bin 
-			exit 1		
+	if [ -f $target_bin ]; then
+		sudo cp $target_bin /usr/local/bin
+		if [ ! -f /usr/share/pixmaps/Alacritty.svg ]; then
+			sudo cp $BUILD_DIRECTORY"/extra/logo/alacritty-term.svg" /usr/share/pixmaps/Alacritty.svg
 		fi
+		sudo desktop-file-install $BUILD_DIRECTORY"/extra/linux/Alacritty.desktop"
+		sudo update-desktop-database
+		printf "Done."
 	else
-		printf "%s not found or /usr/local/bin not in path" $target_bin
+		printf "%s not found \n" $target_bin
 	fi
 }
 
@@ -73,37 +73,37 @@ build() {
 hwto() {
 cat 1>&2 <<EOF
 USAGE: $0 [OPTIONS]
-
-COMMAND:
-	build		Build and add terminfo
-	dentry		Add desktop entry
 	
 OPTIONS:
-	-d,		Set build directory, (default: ~/alacritty or \$ALACRITTY_DIRECTORY if set)
-	-b,		Build. Runs a cargo release build.
-	-e,		Add desktop entry, must be specified after build to use updated binary.
+	-d,	Set build directory, (default: ~/alacritty or \$ALACRITTY_DIRECTORY if set)
+	-b,	Build. Runs a cargo release build.
+	-e,	Add desktop entry, must be specified after build to use updated binary.
 EOF
 }
 
 if [ $# -lt 1 ]; then
-	printf "Invalid number of arguments; \n"
+	printf "Invalid number of options; \n"
 	hwto
 	exit 1
 fi
 
-while getopts ":deb:" opts; do
+while getopts ":d:eb" opts; do
 	case $opts in
 		d)
 			BUILD_DIRECTORY="${OPTARG}"
 			printf "Build Directory: %s \n" $BUILD_DIRECTORY;;
 		e)
 			dentry
-			exit 1 ;;
+			exit 0 ;;
 		b)
 			build
+			exit 0 ;;
+		\?)
+			printf "Invalid option. \n"
+			hwto
 			exit 1 ;;
-		*)
-			
+		:)
+			printf "Expected argument but got \"$OPTARG.\"\n"
 			hwto 
 			exit 1 ;;
 	esac
