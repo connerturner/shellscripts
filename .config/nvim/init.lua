@@ -35,4 +35,8 @@ vim.cmd [[
 vim.call('plug#begin')
     Plug 'arcticicestudio/nord-vim'
     Plug 'lambdalisue/fern.vim'
+    Plug 'feline-nvim/feline.nvim'
 vim.call('plug#end')
+
+-- Feline Status bar config
+require('feline').setup({preset='noicion'})
