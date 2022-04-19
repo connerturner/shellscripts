@@ -17,6 +17,7 @@ vim.cmd [[
     set wildmenu
     map q <Nop>
     set splitbelow
+    set tgc
 ]]
 
 vim.cmd [[
@@ -32,5 +33,6 @@ vim.cmd [[
 
 
 vim.call('plug#begin')
+    Plug 'arcticicestudio/nord-vim'
     Plug 'lambdalisue/fern.vim'
 vim.call('plug#end')
