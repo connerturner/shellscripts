@@ -8,6 +8,7 @@ vim.cmd [[
     set autoindent
     set shiftwidth=4
     set tabstop=4
+    set nosmd
 ]]
 
 vim.cmd [[
@@ -40,3 +41,5 @@ vim.call('plug#end')
 
 -- Feline Status bar config
 require('feline').setup({preset='noicion'})
+
+
