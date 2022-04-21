@@ -42,4 +42,6 @@ vim.call('plug#end')
 -- Feline Status bar config
 require('feline').setup({preset='noicion'})
 
+-- Map Fern toggle to Leader F
+vim.api.nvim_set_keymap('n', '<Leader>f', ':Fern . -drawer -width=35 -reveal=% -toggle<CR><C-w>=', { noremap=true,silent=true })
 
