@@ -7,6 +7,11 @@ alias diff='diff -u --color=always'
 # remap vim to neovim
 alias vim='nvim'
 
+# Get latest /boot config file
+latest-bootconfig() {
+    ls -1vr /boot/config* | head -1
+}
+
 #Oracle cloud get filtered instance information
 oci-getall() {
     oci compute instance list --compartment-id $(cat oci-t) --query 'data[].{name:"display-name",id:id,state:"lifecycle-state",region:region}'
