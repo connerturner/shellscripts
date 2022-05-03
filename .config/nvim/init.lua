@@ -58,3 +58,6 @@ vim.api.nvim_set_keymap('n', '<Leader>f', ':Fern . -drawer -width=35 -reveal=% -
 vim.g['fern#default_hidden'] = 1
 
 -- END      Fern Config
+-- BEGIN    Telescope Config
+vim.api.nvim_set_keymap('n', '<Leader>gr','<cmd>Telescope live_grep<cr>', {noremap=true,silent=true})
+vim.api.nvim_set_keymap('n', '<Leader>gf','<cmd>Telescope find_files<cr>', {noremap=true,silent=true})
