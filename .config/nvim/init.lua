@@ -37,11 +37,24 @@ vim.call('plug#begin')
     Plug 'arcticicestudio/nord-vim'
     Plug 'lambdalisue/fern.vim'
     Plug 'feline-nvim/feline.nvim'
+    Plug 'lambdalisue/fern-hijack.vim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug ('nvim-treesitter/nvim-treesitter')
 vim.call('plug#end')
 
+vim.g.mapleader = [[ ]]
+
+vim.cmd('colorscheme nord')
+
 -- Feline Status bar config
-require('feline').setup({preset='noicion'})
+require('feline')--.setup({preset='noicion'})
+
+-- BEGIN    Fern Config
 
 -- Map Fern toggle to Leader F
 vim.api.nvim_set_keymap('n', '<Leader>f', ':Fern . -drawer -width=35 -reveal=% -toggle<CR><C-w>=', { noremap=true,silent=true })
+-- Enable hidden files to be shown
+vim.g['fern#default_hidden'] = 1
 
+-- END      Fern Config
