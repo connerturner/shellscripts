@@ -32,6 +32,9 @@ vim.cmd [[
     tnoremap <Esc><Esc> <C-w><S-n>
 ]]
 
+-- Map makeprg to F5 and make it run silently
+vim.api.nvim_set_keymap('n','<F5>', '<cmd>make<CR>', {noremap=true})
+vim.api.nvim_set_option('makeprg', 'make --silent')
 
 vim.call('plug#begin')
     Plug 'arcticicestudio/nord-vim'
