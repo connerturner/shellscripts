@@ -65,7 +65,7 @@ vim.g.mapleader = [[ ]]
 vim.cmd('colorscheme nord')
 
 -- Feline Status bar config
-require('feline')--.setup({preset='noicion'})
+require('feline').setup({preset='noicion'})
 
 -- BEGIN    Fern Config
 
