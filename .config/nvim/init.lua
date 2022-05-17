@@ -69,3 +69,7 @@ vim.g['fern#default_hidden'] = 1
 vim.api.nvim_set_keymap('n', '<Leader>gr','<cmd>Telescope live_grep<cr>', {noremap=true,silent=true})
 vim.api.nvim_set_keymap('n', '<Leader>gf','<cmd>Telescope find_files<cr>', {noremap=true,silent=true})
 -- END      Telescope Config
+
+-- BEGIN    lspconfig Config
+require('lspconf')
+-- END      lspconfig Config
