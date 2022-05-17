@@ -43,11 +43,14 @@ vim.call('plug#begin')
     Plug 'lambdalisue/fern-hijack.vim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
-    Plug ('nvim-treesitter/nvim-treesitter')
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'neovim/nvim-lspconfig'
 vim.call('plug#end')
 
+-- Map leader key to space bar
 vim.g.mapleader = [[ ]]
 
+-- Set colour scheme to nord
 vim.cmd('colorscheme nord')
 
 -- Feline Status bar config
@@ -61,6 +64,8 @@ vim.api.nvim_set_keymap('n', '<Leader>f', ':Fern . -drawer -width=35 -reveal=% -
 vim.g['fern#default_hidden'] = 1
 
 -- END      Fern Config
+
 -- BEGIN    Telescope Config
 vim.api.nvim_set_keymap('n', '<Leader>gr','<cmd>Telescope live_grep<cr>', {noremap=true,silent=true})
 vim.api.nvim_set_keymap('n', '<Leader>gf','<cmd>Telescope find_files<cr>', {noremap=true,silent=true})
+-- END      Telescope Config
