@@ -1,5 +1,5 @@
 -- Language servers list
-local ls = {'clangd', 'java_language_server', 'pyright'}
+local ls = {'clangd', 'java_language_server', 'pyright', 'gopls'}
 
 -- nvim-cmp setup
 local cmp = require('cmp')
