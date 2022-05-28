@@ -1,9 +1,12 @@
 -- Language servers list
 local ls = {'clangd', 'java_language_server', 'pyright'}
+
 -- nvim-cmp setup
 local cmp = require('cmp')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local luasnip = require("luasnip")
+
+-- If line in current buffer has words before cursor position when tab is pressed
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
@@ -32,18 +35,16 @@ local on_attach = function(client, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>o', '<cmd>lua vim.diagnostic.open_float()<CR>', keymap_options)
   end
 
+-- Give mappings and setup information to nvim-cmp
 cmp.setup({
     snippet = {
-      -- REQUIRED - you must specify a snippet engine
+      -- USe lusasnip as the nvim-cmp snippet engine
       expand = function(args)
         require('luasnip').lsp_expand(args.body)
       end,
     },
-    window = {
-      -- completion = cmp.config.window.bordered(),
-      -- documentation = cmp.config.window.bordered(),
-    },
     mapping = {
+        -- Go forwards a selection
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -55,7 +56,7 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
-
+        -- Go back a selection
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
@@ -70,7 +71,7 @@ cmp.setup({
       ['<C-f>'] = cmp.mapping.scroll_docs(4),
       ['<C-Space>'] = cmp.mapping.complete(),
       ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+      ['<CR>'] = cmp.mapping.confirm({ select = false }),
     },
     sources = cmp.config.sources({
       { name = 'nvim_lua' },
@@ -97,6 +98,8 @@ cmp.setup({
     }
   })
 
+-- rust-tools is not a valid language server but it installs and sets up
+-- rust-analyser with some nice extras, so we set that up separatley.
 require('rust-tools').setup({
     tools = {
         autoSetHints = true,
@@ -108,6 +111,8 @@ require('rust-tools').setup({
     }
 })
 
+-- Setup function, loop through language servers and call setup() on
+-- their module, with the on-attach function.
 for _, lsp in pairs(ls) do 
   require('lspconfig')[lsp].setup {
     on_attach = on_attach,
