@@ -97,6 +97,16 @@ cmp.setup({
     }
   })
 
+require('rust-tools').setup({
+    tools = {
+        autoSetHints = true,
+        hover_with_actions = true,
+    },
+
+    server = {
+        on_attach = on_attach
+    }
+})
 
 for _, lsp in pairs(ls) do 
   require('lspconfig')[lsp].setup {
