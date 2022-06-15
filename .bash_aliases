@@ -32,3 +32,8 @@ deve(){
         echo "Need a directory in positional arugment 1"
     fi
 }
+
+# Google Chrome new test instance
+new-chrome() {
+    google-chrome --user-data-dir=/tmp/"$(date +%FT%H%M)" "$@" 
+}
