@@ -2,7 +2,7 @@
 alias tmux='tmux -2'
 #iterate and print ssh key information
 alias catssh='for key in ~/.ssh/id_*; do ssh-keygen -l -E md5 -f "${key}"; done | uniq'
-alias catssh256='for key in ~/.ssh/id_*; do ssh-keygen -l -E sha256 -f "${key}"; done | uniq'
+alias catssh256='for key in ~/.ssh/id_*; do printf "%s => " $(basename $key); ssh-keygen -l -E sha256 -f "${key}"; done | uniq'
 #remap diff to unified output with color always
 alias diff='diff -u --color=always'
 # remap vim to neovim
