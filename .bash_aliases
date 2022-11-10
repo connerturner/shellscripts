@@ -33,6 +33,20 @@ deve(){
     fi
 }
 
+arpmac() {
+    arp -a |\
+    grep -oiE "([0-9a-f]{2}:){5}([0-9a-f]{2})" |\
+    sed -e 's/://g'
+}
+
+mac-oui() {
+    if [ $# -eq 1 ]; then
+        echo $1 | cut -c1-6 | grep -f - -i /var/lib/ieee-data/oui.txt
+    else
+        echo "Need argument of MAC address"
+    fi
+}
+
 # Google Chrome new test instance
 new-chrome() {
     google-chrome --user-data-dir=/tmp/"$(date +%FT%H%M)" "$@" 
